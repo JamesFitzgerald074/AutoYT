@@ -1,4 +1,4 @@
-from moviepy.editor import *
+from moviepy.editor import *   #TODO only import things in use
 
 def cutClip(inClip):#Takes source clip and cuts it to a usable size EG 1 min
     #clip = VideoFileClip(clipName)
@@ -33,9 +33,9 @@ def enrichClip(overlayText, audioClipPath, inputClipPath, outputClipName):
     final.write_videofile(outputClipName, fps=30, codec='libx264')
     return True
 
-def stitchClips(vidList, outputClipName):#Concatrates list of videoObjects in CWD
+def combineClips(vidList, outputClipName):#Concatrates list of videoObjects in CWD
     try:
-        outputClip = concatenate_videoclips(vidList)
+        outputClip = concatenate_videoclips(vidList, method='compose')
         outputClip.write_videofile(outputClipName)
         return True
     except:
