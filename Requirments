@@ -1,0 +1,7 @@
+requirments
+
+
+ffmpeg
+moviepy
+ytdownloader
+First of all, I install libmagick++-dev by using sudo apt install libmagick++-dev. Secondly, I follow the suggestion from reddit. Specifically, I open policy.xml of ImageMagick by using command: sudo vim /etc/ImageMagick-6/policy.xml and then comment the @ policy by change from <policy domain="path" rights="none" pattern="@*" /> to <!--<policy domain="path" rights="none" pattern="@*" /> -->.

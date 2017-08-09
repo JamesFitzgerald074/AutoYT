@@ -1,3 +1,15 @@
+
+#sample clips and stuff
+sample
+sample/
+
+#tests
+*test*
+
+#api keys
+apiKeys.py
+
+#--DEFAULTS--
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
