@@ -32,7 +32,9 @@ def getYT(search):
         if '/user/' not in vidLink and 'list=' not in vidLink:
             #testing for
             maxLength = 360 #6min video
-            YTvidLength = getYTLength(vidLink)
+            try:
+                YTvidLength = getYTLength(vidLink)
+            except: YTvidLength = 100
             if YTvidLength < maxLength:
                 links.append(YTwatchURL + vidLink)
             else:
@@ -40,7 +42,7 @@ def getYT(search):
     return links
 
 def getYTLength(vidCode):
-    searchUrl = "https://www.googleapis.com/youtube/v3/videos?id="+vidCode+"&key="+api_key+"&part=contentDetails"
+    searchUrl = "https://www.googleapis.com/youtube/v3/videos?id="+vidCode+"&key="+ apiKeys.api_key +"&part=contentDetails"
     response = urllib.request.urlopen(searchUrl).read()
     data = json.loads(response.decode('utf-8'))
     all_data = data['items']
