@@ -8,41 +8,38 @@ def cutClip(outClip):#Takes source clip and cuts it to a usable size EG 1 min
 
 
 def enrichClip(overlayText, audioClipPath, inputClipPath, outputClipName, clipNum=0):
-    nclip = VideoFileClip(inputClipPath, audio=False)
-    aclip = AudioFileClip(audioClipPath)
-    vclip = cutClip(nclip)
+    vClip = VideoFileClip(inputClipPath, audio=False)
+    aClip = AudioFileClip(audioClipPath)
+    vClip = cutClip(vClip)
     #print(vclip.duration)
     #vclips dimensions w, hs
-    w,h = moviesize = vclip.size
-    #creates text clip
+    w,h = moviesize = vClip.size
     #Brings together the video and audio clips
-    vaclip = (vclip.set_audio(aclip))
+    vClip = (vClip.set_audio(aClip))
 
-    txt = TextClip( overlayText, font='Amiri-regular',
+    #creates text clip
+    txt = TextClip(overlayText, font='Amiri-regular',
     	               color='white',fontsize= 70).set_duration(23)
     #puts text clip on and object
     #makes a colour shape to place the text on
-    #color is a RGB numpy array
-    txt_col = txt.on_color(size=(vclip.w + txt.w,txt.h-10),
+    #color is a RGB
+    txt_col = txt.on_color(size=(vClip.w + txt.w,txt.h-10),
                       color=(0,0,0), pos=(6,'center'), col_opacity=0.6)
-    #???
+    #lamda calculation frame by frame for the position of the text on the screen
     txt_mov = txt_col.set_pos( lambda t: (max(w/30,int(w-0.5*w*t)),
                                       max(5*h/6,int(100*t))) )
     # Composite clips
-    clipFinal = CompositeVideoClip([vaclip, txt_mov])
+    clipFinal = CompositeVideoClip([vClip, txt_mov])
+    #if clipNum is at its default it will not add a numbered clip before it
     if clipNum:
         num_clip = TextClip(str(clipNum), fontsize=60, color='green').set_duration(2)
-        final = concatenate_videoclips([num_clip, clipFinal], method='compose')
-    final.write_videofile(outputClipName, fps=30, codec='libx264')
+        clipFinal = concatenate_videoclips([num_clip, clipFinal], method='compose')
+    clipFinal.write_videofile(outputClipName, fps=30, codec='libx264')
+    #remove uneeded video objects from memory
+    del vClip, aClip, txt, txt_col, txt_mov, clipFinal
     return True
 
 def combineClips(vidList, outputClipName):#Concatrates list of videoObjects in CWD
-    #try:
-    print(vidList)
     outputClip = concatenate_videoclips(vidList, method='compose')
-    #except:
-        #return 'failed concatenate_videoclips'
-    #try:
     outputClip.write_videofile(outputClipName, fps=30, codec='libx264')
-    #except:
     return True
