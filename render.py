@@ -32,7 +32,7 @@ def enrichClip(overlayText, audioClipPath, inputClipPath, outputClipName, clipNu
     clipFinal = CompositeVideoClip([vClip, txt_mov])
     #if clipNum is at its default it will not add a numbered clip before it
     if clipNum:
-        num_clip = TextClip(str(clipNum), fontsize=60, color='green').set_duration(2)
+        num_clip = TextClip(str(clipNum), fontsize=100, color='green').set_duration(3)
         clipFinal = concatenate_videoclips([num_clip, clipFinal], method='compose')
     clipFinal.write_videofile(outputClipName, fps=30, codec='libx264')
     #remove uneeded video objects from memory
@@ -43,3 +43,7 @@ def combineClips(vidList, outputClipName):#Concatrates list of videoObjects in C
     outputClip = concatenate_videoclips(vidList, method='compose')
     outputClip.write_videofile(outputClipName, fps=30, codec='libx264')
     return True
+
+def makeTitle(text):
+    txt = TextClip(str(text), fontsize=60, color='green').set_duration(3)
+    txt.write_videofile(text.mp4, fps=5, codec='libx264')
