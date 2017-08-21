@@ -42,13 +42,19 @@ def getContent(searchDict):
                 break
     return searchDict
 
+def makeCompleteVideo(videoList, vidTitle, vidDir):
+    os.chdir(vidDir)
+    videoDict = makeDict(videoList)
+    videoDict = getContent(videoDict)
+    videoDict = enrichClipSet(videoDict)
+    return makeVideo(vidTitle + '.mp4', videoDict)
 
-test = ['Iron Man','Thor','Dr Strange']
-testDict = makeDict(test)
-os.chdir('sample') #for testing
-print(testDict)
-testDict = getContent(testDict)
-print(testDict)
-testDict = enrichClipSet(testDict)
-print(testDict)
-print(makeVideo("top3Marvel.mp4",testDict))
+#test = ['Iron Man','Thor','Dr Strange']
+#testDict = makeDict(test)
+#os.chdir('sample') #for testing
+#print(testDict)
+#testDict = getContent(testDict)
+#print(testDict)
+#testDict = enrichClipSet(testDict)
+#print(testDict)
+#print(makeVideo("top3Marvel.mp4",testDict))
