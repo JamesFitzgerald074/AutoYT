@@ -3,11 +3,11 @@ import render
 import os
 from moviepy.editor import VideoFileClip
 
-def makeVideo(vidName, vidFileDict): #method for making final video from enriched clips
+def makeVideo(outVidName, vidFileDict): #method for making final video from enriched clips
     vidList = []
-    for vidName, vid in vidFileDict.items:
+    for vidName, vid in vidFileDict.items():
         vidList.append(VideoFileClip(vid))
-    render.combineClips(vidList, vidName)
+    return render.combineClips(vidList, outVidName)
 
 #makeVideo test
 #testVidList = ['ENRThor.mp4', 'ENRmoviepy_sample.mp4', 'Thor.mp4']
@@ -27,7 +27,7 @@ def enrichClipSet(clipDict): #passed a dictionary with the title as the key and 
 
 def makeDict(listSrc):
     outDict = {}
-    for s in listSrc:
+    for s in reversed(listSrc):
         outDict[s] = ''
     return outDict
 
@@ -42,10 +42,13 @@ def getContent(searchDict):
                 break
     return searchDict
 
+
+test = ['Iron Man','Thor','Dr Strange']
+testDict = makeDict(test)
 os.chdir('sample') #for testing
-test = {'Iron Man':'Iron Man.mp4',
-        'Thor':'Thor.mp4',
-        'Dr Strange': 'Dr Strange.mp4'}
-testDict = enrichClipSet(test)
 print(testDict)
-makeVideo("top3Marvel.mp4",testdict)
+testDict = getContent(testDict)
+print(testDict)
+testDict = enrichClipSet(testDict)
+print(testDict)
+print(makeVideo("top3Marvel.mp4",testDict))

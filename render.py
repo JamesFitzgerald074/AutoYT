@@ -37,9 +37,12 @@ def enrichClip(overlayText, audioClipPath, inputClipPath, outputClipName, clipNu
     return True
 
 def combineClips(vidList, outputClipName):#Concatrates list of videoObjects in CWD
-    try:
-        outputClip = concatenate_videoclips(vidList, method='compose')
-        outputClip.write_videofile(outputClipName)
-        return True
-    except:
-        return False
+    #try:
+    print(vidList)
+    outputClip = concatenate_videoclips(vidList, method='compose')
+    #except:
+        #return 'failed concatenate_videoclips'
+    #try:
+    outputClip.write_videofile(outputClipName, fps=30, codec='libx264')
+    #except:
+    return True
