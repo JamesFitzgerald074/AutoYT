@@ -3,6 +3,9 @@
 sample
 sample/
 
+#video Dirs
+@*
+
 #tests
 *test*
 

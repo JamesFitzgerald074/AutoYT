@@ -46,4 +46,4 @@ def combineClips(vidList, outputClipName):#Concatrates list of videoObjects in C
 
 def makeTitle(text):
     txt = TextClip(str(text), fontsize=60, color='green').set_duration(3)
-    txt.write_videofile(text.mp4, fps=5, codec='libx264')
+    txt.write_videofile(text + '.mp4', fps=5, codec='libx264')

@@ -1,6 +1,7 @@
 import getMaterials
 import render
 import os
+import collections #for OrderedDict
 from moviepy.editor import VideoFileClip
 
 def makeFinalVideo(outVidName, vidFileDict): #method for making final video from enriched clips
@@ -22,8 +23,8 @@ def enrichClipSet(clipDict): #passed a dictionary with the title as the key and 
     return clipDict
 
 def makeDict(listSrc):
-    outDict = {}
-    for s in reversed(listSrc):
+    outDict = collections.OrderedDict()
+    for s in listSrc:
         if s[0] == '#':
             outDict[s] = s[1:]
         outDict[s] = ''
@@ -39,10 +40,11 @@ def getContent(searchDict):
         searchDict[peice] = peice + '.mp4'
         for link in links:
             if getMaterials.downloadVid(link, searchDict[peice]):
+                print('downloading ' + searchDict[peice])
                 break
     return searchDict
 
-def makeVideo(videoDict, vidTitle, vidDir):
+def makeVideo(videoDict, vidTitle):
     videoDict = getContent(videoDict)
     videoDict = enrichClipSet(videoDict)
     makeFinalVideo(vidTitle + '.mp4', videoDict)
@@ -57,6 +59,7 @@ def listVideo(listVidFolder):
     videoList = makeList(listFile)
     videoDict = makeDict(videoList)
     print(videoDict)
-    #makeVideo()
+    videoTitle = list(videoDict.items())[0][0][1:] #messy way to get title from ordered dict
+    makeVideo(videoDict, videoTitle)
 
 listVideo('#0TEST')
