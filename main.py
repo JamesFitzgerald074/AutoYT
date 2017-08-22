@@ -31,16 +31,16 @@ def makeDict(listSrc):
     return outDict
 
 def getContent(searchDict):
-    for peice in searchDict:
-        if peice[0] == '.':
-            render.makeTitle(peice[1:])
-            searchDict[peice] = peice[1:] + 'mp4'
+    for piece in searchDict:
+        if piece[0] == '.':
+            render.makeTitle(piece[1:])
+            searchDict[piece] = piece[1:] + 'mp4'
             pass
-        links = getMaterials.getYT(peice + ' trailer')#TODO remove temporary clip search modifier
-        searchDict[peice] = peice + '.mp4'
+        links = getMaterials.getYT(piece + ' trailer')#TODO remove temporary clip search modifier
+        searchDict[piece] = piece + '.mp4'
         for link in links:
-            if getMaterials.downloadVid(link, searchDict[peice]):
-                print('downloading ' + searchDict[peice])
+            if getMaterials.downloadVid(link, searchDict[piece]):
+                print('downloading ' + searchDict[piece])
                 break
     return searchDict
 
