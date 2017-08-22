@@ -68,10 +68,3 @@ def makeAudio(speechText, filename):
         return True
     except:
         return False
-
-
-#earch = input('> ')
-#print(getYTlink(search))
-#stuff = makeAudio('this works welcome to vid salsa', 'vidsalsa.mp3','/home/aimless/Top10/test')
-#print(stuff)
-#downloadVid(['http://www.youtube.com/watch?v=X4j-MUZRq0g'],'bleh','/home/aimless/Top10')

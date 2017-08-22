@@ -1,7 +1,6 @@
-from moviepy.editor import *   #TODO only import things in use
+from moviepy.editor import * 
 
 def cutClip(outClip):#Takes source clip and cuts it to a usable size EG 1 min
-    #clip = VideoFileClip(clipName)
     if outClip.duration > 80:
         outClip = outClip.subclip(t_start=10,t_end=30)
     return outClip
@@ -11,13 +10,10 @@ def enrichClip(overlayText, audioClipPath, inputClipPath, outputClipName, clipNu
     vClip = VideoFileClip(inputClipPath, audio=False)
     aClip = AudioFileClip(audioClipPath)
     vClip = cutClip(vClip)
-    #print(vclip.duration)
-    #vclips dimensions w, hs
-    w,h = moviesize = vClip.size
-    #Brings together the video and audio clips
-    vClip = (vClip.set_audio(aClip))
 
-    #creates text clip
+    w,h = moviesize = vClip.size#vclips dimensions w, hs
+    vClip = (vClip.set_audio(aClip))#Brings together the video and audio clips
+    #create text clip
     txt = TextClip(overlayText, font='Amiri-regular',
     	               color='white',fontsize= 70).set_duration(23)
     #puts text clip on and object
@@ -28,8 +24,8 @@ def enrichClip(overlayText, audioClipPath, inputClipPath, outputClipName, clipNu
     #lamda calculation frame by frame for the position of the text on the screen
     txt_mov = txt_col.set_pos( lambda t: (max(w/30,int(w-0.5*w*t)),
                                       max(5*h/6,int(100*t))) )
-    # Composite clips
-    clipFinal = CompositeVideoClip([vClip, txt_mov])
+
+    clipFinal = CompositeVideoClip([vClip, txt_mov])# Composite clips
     #if clipNum is at its default it will not add a numbered clip before it
     if clipNum:
         num_clip = TextClip(str(clipNum), fontsize=100, color='green').set_duration(3)
