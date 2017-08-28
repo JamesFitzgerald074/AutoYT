@@ -21,7 +21,7 @@ def enrichClipSet(clipDict): #passed a dictionary with the title as the key and 
         clipDict[clipName] = 'ENR' + clipFile
     return clipDict
 
-def makeDict(listSrc):
+def makeDict(listSrc):#TODO improve this system for creating and storing lists
     outDict = collections.OrderedDict()
     for s in listSrc:
         if s[0] == '#':
