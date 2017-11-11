@@ -1,15 +1,13 @@
-import requests
-import lxml
+import requests, lxml, urllib
 from bs4 import BeautifulSoup
-import urllib
+
 
 from pytube import YouTube #Youtube download
 
 from gtts import gTTS #TTS(Text To Speech)
 import os
 
-import json
-import isodate #converting iso durations to seconds
+import json, isodate #converting iso durations to seconds
 
 import apiKeys
 
@@ -42,11 +40,14 @@ def getYT(search):
     return links
 
 def getYTLength(vidCode):
+    #request video for data for video total length
     searchUrl = "https://www.googleapis.com/youtube/v3/videos?id="+vidCode+"&key="+ apiKeys.api_key +"&part=contentDetails"
     response = urllib.request.urlopen(searchUrl).read()
+    #parse response
     data = json.loads(response.decode('utf-8'))
     all_data = data['items']
     contentDetails = all_data[0]['contentDetails']
+    #find and parse duration
     duration = contentDetails['duration']
     parseDur = isodate.parse_duration(duration)
     return int(parseDur.total_seconds())

@@ -1,4 +1,4 @@
-from moviepy.editor import * 
+from moviepy.editor import *
 
 def cutClip(outClip):#Takes source clip and cuts it to a usable size EG 1 min
     if outClip.duration > 80:
@@ -20,7 +20,9 @@ def enrichClip(overlayText, audioClipPath, inputClipPath, outputClipName, clipNu
     #makes a colour shape to place the text on
     #color is a RGB
     txt_col = txt.on_color(size=(vClip.w + txt.w,txt.h-10),
-                      color=(0,0,0), pos=(6,'center'), col_opacity=0.6)
+                      color=(0,0,0),
+                      pos=(6,'center'),
+                      col_opacity=0.6)
     #lamda calculation frame by frame for the position of the text on the screen
     txt_mov = txt_col.set_pos( lambda t: (max(w/30,int(w-0.5*w*t)),
                                       max(5*h/6,int(100*t))) )
@@ -30,9 +32,11 @@ def enrichClip(overlayText, audioClipPath, inputClipPath, outputClipName, clipNu
     if clipNum:
         num_clip = TextClip(str(clipNum), fontsize=100, color='green').set_duration(3)
         clipFinal = concatenate_videoclips([num_clip, clipFinal], method='compose')
+
     clipFinal.write_videofile(outputClipName, fps=30, codec='libx264')
     #remove uneeded video objects from memory
     del vClip, aClip, txt, txt_col, txt_mov, clipFinal
+
     return True
 
 def combineClips(vidList, outputClipName):#Concatrates list of videoObjects in CWD
