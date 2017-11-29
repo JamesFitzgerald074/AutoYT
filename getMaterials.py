@@ -9,10 +9,10 @@ import os
 
 import json, isodate #converting iso durations to seconds
 
-import apiKeys
+import apiKeys #.py file with apikeys as variables
 
 def getYT(search):
-    #Returns a list with all youtbe video links
+    """Returns a list with all youtube video links related to search parameter"""
     url = 'http://www.youtube.com/results?search_query='
     YTwatchURL = 'http://www.youtube.com'
     links = []
@@ -40,7 +40,7 @@ def getYT(search):
     return links
 
 def getYTLength(vidCode):
-    #request video for data for video total length
+    """request video for data for video total length"""
     searchUrl = "https://www.googleapis.com/youtube/v3/videos?id="+vidCode+"&key="+ apiKeys.api_key +"&part=contentDetails"
     response = urllib.request.urlopen(searchUrl).read()
     #parse response
@@ -53,6 +53,7 @@ def getYTLength(vidCode):
     return int(parseDur.total_seconds())
 
 def downloadVid(videoLink, filename):#saves video to CWD
+    """Downlaods youtube video from link and filename"""
     YT = YouTube(videoLink)
     YT.set_filename(filename)
     try:
@@ -63,6 +64,7 @@ def downloadVid(videoLink, filename):#saves video to CWD
         return False
 
 def makeAudio(speechText, filename):
+    """makes TTS audio from a string and then sves the output as an mp3 to a given filename"""
     try:
         tts = gTTS(text=speechText, lang='en')
         tts.save(filename)
